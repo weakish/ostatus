@@ -3,8 +3,8 @@ OpenMicroBlogging specification
 ===============================
 
 :Author: Evan Prodromou (Control Yourself, Inc.)
-:Contact: evan@controlezvous.ca
-:Revision: 0.1.1
+:Contact: evan@controlyourself.ca
+:Revision: 0.2.0
 :Date: 2008-07-07
 :Copyright: To the extent possible under law, Control Yourself, Inc
 	    has waived all copyright, moral rights, database rights,
@@ -88,10 +88,10 @@ containing the identifier URI for the subscriber.
 The following two extra services must be included in the YADIS
 document, with accompanying URIs.
 
-http://openmicroblogging.org/protocol/0.1/postNotice
+http://openmicroblogging.org/protocol/0.2/postNotice
     Post Notice URL, as defined below.
 
-http://openmicroblogging.org/protocol/0.1/updateProfile
+http://openmicroblogging.org/protocol/0.2/updateProfile
     Update Profile URL, as defined below.
 
 If any of the URIs is unavailable, the publishing service MUST stop
@@ -124,7 +124,7 @@ In the request token HTTP request, the publishing service MUST send the
 following additional parameter(s):
 
 omb_version
-    'http://openmicroblogging.org/protocol/0.1'
+    'http://openmicroblogging.org/protocol/0.2'
 omb_subscriber
     The identifier URI for the subscriber.
 
@@ -132,7 +132,7 @@ In the results for the request token request, the subscriber service MUST
 send the following additional parameters:
 
 omb_version
-    'http://openmicroblogging.org/protocol/0.1'
+    'http://openmicroblogging.org/protocol/0.2'
 
 User authorization
 ------------------
@@ -141,7 +141,7 @@ In requesting user authorization, the publishing service must send the
 following parameters:
 
 omb_version
-    'http://openmicroblogging.org/protocol/0.1'.
+    'http://openmicroblogging.org/protocol/0.2'.
 omb_subscriber
     The identifier URI for the subscriber.
 omb_publisher
@@ -181,7 +181,7 @@ The subscriber service, in a successful response, must return the
 following additional parameters:
 
 omb_version
-    'http://openmicroblogging.org/protocol/0.1'.
+    'http://openmicroblogging.org/protocol/0.2'.
 omb_subscriber_nickname
     A nickname for the subscriber.
 omb_subscriber_profile
@@ -223,7 +223,7 @@ use OAuth authorization. The message must also include the following
 parameters:
 
 omb_version
-    'http://openmicroblogging.org/protocol/0.1'.
+    'http://openmicroblogging.org/protocol/0.2'.
 omb_publisher
     The identifier URI for the publisher.
 omb_notice
@@ -255,7 +255,7 @@ The subscriber service should include the following parameters in its
 response:
 
 omb_version
-    'http://openmicroblogging.org/protocol/0.1'.
+    'http://openmicroblogging.org/protocol/0.2'.
 
 The subscriber service makes no guarantees about the delivery of the notice
 to anyone.
@@ -287,7 +287,7 @@ The message must use OAuth authorization. The message must also
 include the following parameters:
 
 omb_version
-    'http://openmicroblogging.org/protocol/0.1'.
+    'http://openmicroblogging.org/protocol/0.2'.
 omb_publisher
     The identifier URI for the publisher.
 
