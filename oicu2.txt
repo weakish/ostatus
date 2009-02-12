@@ -176,10 +176,10 @@ photo.example.com and social.example.net have no previous relationship.
    oicu2_confirmation_token_valid result with value 'yes'.
 
 10. On receiving the validation result of 'yes', the social networking
-   site generates an arbitrary value to use as a consumer secret, and
-   stores it in a private database for future verification. (Note: one
-   possible implementation.) It returns the consumer secret as the
-   oicu2_consumer_secret return value.
+    site generates an arbitrary value to use as a consumer secret, and
+    stores it in a private database for future verification. (Note: one
+    possible implementation.) It returns the consumer secret as the
+    oicu2_consumer_secret return value.
 
 Security considerations
 -----------------------
