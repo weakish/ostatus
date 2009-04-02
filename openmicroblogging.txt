@@ -5,7 +5,7 @@ OpenMicroBlogging specification
 :Author: Evan Prodromou (Control Yourself, Inc.)
 :Contact: evan@controlyourself.ca
 :Revision: 0.2.0
-:Date: 2008-07-07
+:Date: 2009-04-02
 :Copyright: To the extent possible under law, Control Yourself, Inc
 	    has waived all copyright, moral rights, database rights,
 	    and any other rights that might be asserted over
@@ -14,8 +14,45 @@ OpenMicroBlogging specification
 Purpose
 =======
 
-To allow users of one microblogging service to publish notices to
-users of another service, with the other users' permission.
+The OpenMicroBlogging (OMB) protocol allows users of one microblogging
+service to publish notices to users of another service, with the other
+users' permission.
+
+The protocol consists of the following elements:
+
+* A set of methods for passing information between microblogging
+  servers.
+* A protocol for initiating a subscription.
+
+OpenMicroBlogging is "push"-based; the publishing service for a
+message or event uses an HTTP POST request to "push" the event data to
+subscriber services. This is in contrast to "pull"-based protocols,
+like Atom feeds, RSS 1.0, or RSS 2.0.
+
+Microblogging requires distribution of notices in near-realtime;
+polling solutions are insufficient to meet these requirements.
+
+OpenMicroBlogging presupposes a hub-and-spoke architecture: that
+clients send notices to, and retrieve notices from, a dedicated and
+addressable server. Client connections may be volatile; servers are
+expected to be regularly available. Similar architectures are used for
+Internet email and XMPP.
+
+Scope
+-----
+
+OMB deals specifically with server-to-server interaction. The
+following are explicitly out of scope:
+
+* Client-to-server protocol. Servers may provide Web or other APIs;
+  may allow submissions of notices by email, SMS, instant message, or
+  through Web forms.
+* Notice text syntax. Many microblogging services interpret control
+  characters in the text of a notice as metadata. For example,
+  "@nickname" may signify that a notice is a reply to the user with
+  nickname "nickname", or "#tag" may signify that a notice is "tagged"
+  with a particular subject or category. This protocol does not define
+  any such syntax. Metadata for notices is explicitly defined.
 
 Enabling technologies
 =====================
