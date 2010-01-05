@@ -72,8 +72,8 @@ consumerSecretRequest method described below.
 If the Consumer has previously retrieved a Consumer Secret value from
 the endpoint, it should use that previous secret.
 
-consumerKeyRequest
-------------------
+consumerSecretRequest
+---------------------
 
 To request a Consumer Secret value, the Consumer makes a signed
 request to the consumerSecretRequest URL. The request must use the

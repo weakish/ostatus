@@ -122,6 +122,36 @@ OMB namespace
 ** nickname is string
 ** account is acct: URI
 
+Activity Streams verbs
+----------------------
+
+Subject: WebFinger account URI for subscriber
+
+Verbs we'll use for important events:
+
+Subscribe: http://activitystrea.ms/schema/1.0/follow
+Unsubscribe: ?
+Favorite: http://activitystrea.ms/schema/1.0/favorite
+Unfavorite: ?
+Repeat: http://activitystrea.ms/schema/1.0/share
+
+WebFinger discovery
+-------------------
+
+Given an identity of acct:user@example.com, you can do the WebFinger
+discovery process to find the XRD document for that account.
+
+The account's XRD document can have two types of links:
+
+1. A link to the account's OMB-enabled Atom stream. Relation is
+   http://openmicroblogging.org/0.9/stream, can be an URI or a URI
+   template.
+2. A link to the URITemplate to redirect the user in case of
+   publisher-initiated subscription. Rel is
+   http://openmicroblogging.org/0.9/subscribe. URI template takes
+   one parameter, feed, for the URL of the feed to which the
+   subscriber is subscribing.
+
 Usage scenarios
 ---------------
 
@@ -160,7 +190,13 @@ optimization.
 Subscription (from Publisher server)
 ====================================
 
-1. Subscriber
+1. Subscriber provides a WebFinger account to the Publisher server
+   (say, in an HTML form).
+2. Publisher server uses WebFinger to discover the subscription
+   URITemplate for this user.
+3. Publisher server substitutes Publisher's feed URL into URITemplate.
+4. Publisher server redirects user's browser to substituted URL.
+5. Subscription continues from step 1 of previous use.
 
 Open questions
 --------------
