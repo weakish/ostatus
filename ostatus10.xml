@@ -1,0 +1,373 @@
+<?xml version='1.0' ?>
+<?xml-stylesheet type='text/xsl' href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
+
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<rfc category="info" ipr="full3978" docName="ostatus10.xml">
+
+  <front>
+    <title>OStatus 1.0 Draft 1</title>
+    <author initials="ESP" surname="Prodromou" fullname="Evan Prodromou">
+      <organization>StatusNet Inc</organization>
+      <address>
+	<email>evan@status.net</email>
+	<uri>http://evan.status.net/</uri>
+      </address>
+    </author>
+    <author initials="BV" surname="Vibber" fullname="Brion Vibber">
+      <organization>StatusNet Inc</organization>
+      <address>
+	<email>brion@status.net</email>
+      </address>
+    </author>
+    <author initials="JW" surname="Walker" fullname="James Walker">
+      <organization>StatusNet Inc</organization>
+      <address>
+	<email>james@status.net</email>
+      </address>
+    </author>
+    <author initials="ZC" surname="Copley" fullname="Zach Copley">
+      <organization>StatusNet Inc</organization>
+      <address>
+	<email>zach@status.net</email>
+      </address>
+    </author>
+
+    <date day="3" month="March" year="2010" />
+
+    <abstract>
+      <t>
+	OStatus lets people on different social networks follow each
+	other. It applies several Internet technologies and defines
+	a few extensions or restrictions.
+      </t>
+    </abstract>
+
+  </front>
+
+  <middle>
+
+    <section title="Terminology">
+      <t>
+	The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;,
+	&quot;SHALL NOT&quot;, &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;, &quot;MAY&quot;,
+	and &quot;OPTIONAL&quot; in this document are to be interpreted as
+	described in <xref target="RFC2119"/>.
+      </t>
+    </section>
+
+    <section title="Scope">
+      <section anchor="glossary" title="Abstract architecture">
+	<t>
+	  <list style="hanging">
+	    <t hangText="publisher:">
+	      the author of microblogging notices
+	    </t>
+	    <t hangText="subscriber:">
+	      the receiver of microblogging notices
+	    </t>
+	    <t hangText="publisher server:">
+	      the Web-accessible server that provides the publisher's data
+	    </t>
+	    <t hangText="subscriber server:">
+	      the Web-accessible server that provides data to the subscriber
+	    </t>
+	    <t hangText="notice:">
+	      a unit of content, typically a short plain text message
+	      with context and attachments.
+	    </t>
+	  </list>
+	</t>
+      </section>
+
+      <section title="Requirements">
+	<t>
+	  <list style="symbols">
+
+	    <t>Subscriber can receive Publisher's notices very soon after
+	      publication. (&quot;Real time&quot;, &quot;near real time&quot;) (Upshot: we want
+	      push.)</t>
+
+	    <t>Notices contain plain text in UTF-8 encoding and may contain
+	      optional HTML representation as well as one or more enclosure.</t>
+
+	    <t>A notice can be in response to another notice.</t>
+
+	    <t>A notice can be a forwarded copy of another notice. (&quot;repeat&quot;,
+	      &quot;retweet&quot;).</t>
+
+	    <t>A notice can be about a topic.</t>
+
+	    <t>A notice can be directed to the attention of a particular recipient.
+	      (&quot;mention&quot;).</t>
+
+	    <t>Anyone can mark a notice as a &quot;favorite&quot;, or remove that mark.</t>
+
+	    <t>Publisher server can store a list of all Subscribers for a given
+	      Publisher, including identities and profile data.</t>
+
+	    <t>Subscriber server can store a list of all Publishers for a given
+	      Subscriber, including identities and profile data.</t>
+
+	    <t>Publisher server can store a list of all responses to a notice
+	      by a publisher.</t>
+
+	    <t>Publisher server can store a list of all forwarded copies of a notice
+	      by a publisher.</t>
+
+	    <t>Publisher server can store a list of all &quot;favorites&quot; of a notice by
+	      a Publisher.</t>
+
+	    <t>Servers can determine notice context and metadata without
+	      parsing the plain text according to a particular syntax.</t>
+
+	    <t>Subscribers can subscribe to a feed with multiple authors, such
+	      as a group, a search feed, or a tag feed.</t>
+	  </list>
+	</t>
+      </section>
+
+      <section title="Out of scope">
+	<t>The following elements of microblogging systems are out of scope for
+	  this standard.</t>
+	<t>
+	  <list style="hanging">
+	    <t hangText="Microblogging syntax:">Microblogging servers use a number of
+	      different idioms for adding metadata to a notice. Notable examples
+	      are hashtags (#hashtag) and @-replies (@username). We defer to
+	      microsyntax.org for developing these idioms and encourage innovation.
+	      Publisher and subscriber servers should be able to process received
+	      notices without parsing the plain text content.</t>
+	    <t hangText="Client API">Microblogging systems typically allow many forms of
+	      communication between the publisher and the publisher server as well
+	      as the subscriber and the subscriber server. Some examples: Web
+	      interface, email, IM, SMS, and a Web API. By analogy with email,
+	      OStatus is to client interfaces as SMTP is to IMAP or POP.
+	    </t>
+	  </list>
+	</t>
+      </section>
+    </section>
+
+    <section title="Protocol">
+
+      <t>OStatus applies the following technologies:</t>
+      <t>
+	<list style="symbols">
+	  <t>Atom.</t>
+	  <t>PubSubHubBub (&quot;PuSH&quot;): a protocol for pushing Atom feeds to
+	    subscribers.</t>
+	  <t>activitystrea.ms: a protocol for enhancing Atom entries to
+	    represent a user's activities.</t>
+	  <t>Salmon: a protocol for submitting responses to Atom feeds.</t>
+	  <t>WebFinger: global identities</t>
+	</list>
+      </t>
+
+      <section title="Overview">
+
+	<t>Notices are represented as Atom entries, with additional data for
+	  threading, responses, attention, and topics.</t>
+
+	<t>The publisher server uses PuSH to notify subscribers of new notices in
+	  real-enough-time.</t>
+
+	<t>The subscriber server uses PuSH to subscribe to the publisher's notice
+	  feed.</t>
+
+	<t>The subscriber server uses Salmon to post activitystrea.ms-enhanced
+	  notifications to the publisher of new subscribers; of replies and
+	  &quot;attention&quot; notices; of favorites; and of
+	  forwarded notices.</t>
+
+	<t>The publisher server optionally uses push to notify subscribers of the
+	  publisher's activities, using activitystrea.ms-enhanced
+	  notifications.</t>
+
+	<t>If subscription originates with the Publisher server, the Subscriber
+	  identifies themselves to the server using a Webfinger account URL
+	  (nickname@example.com), and the server uses Webfinger discovery to
+	  find an endpoint on the Subscriber server to initiate the
+	  subscription process.</t>
+
+      </section>
+
+      <section title="Atom entries">
+
+	<t>
+	  <list style="symbols">
+	    <t>Text content stored as atom:summary</t>
+	    <t>HTML content stored as atom:content</t>
+	    <t>Attachments stored as link, rel=enclosure</t>
+	    <t>topics stored as atom:category, SHOULD be tags (rel-tag)</t>
+	    <t>response stored as thread:in-reply-to as in <xref target="RFC4685"/></t>
+	    <t>attention stored as ostatus:attention</t>
+	    <t>repeat/retweet stored as ostatus:forward</t>
+	  </list>
+	</t>
+
+      </section>
+
+      <section title="OStatus Namespace">
+        <t>
+          <list style="symbols">
+            <t>forward (like in-reply-to)
+              <list style="symbols">
+                <t>ref is uri</t>
+                <t>type is ?</t>
+                <t>href is URL</t>
+              </list>
+            </t>
+            <t>attn
+              <list style="symbols">
+                <t>ref is URI</t>
+                <t>nickname is string</t>
+                <t>account is acct: URI</t>
+              </list>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title="Activity Streams verbs">
+        <t>Subject: WebFinger account URI for subscriber</t>
+        <t>Verbs we'll use for important events:
+          <list style="hanging">
+            <t hangText="Subscribe:">http://activitystrea.ms/schema/1.0/follow</t>
+            <t hangText="Unsubscribe:">?</t>
+            <t hangText="Favorite:">http://activitystrea.ms/schema/1.0/favorite</t>
+            <t hangText="Unfavorite:">?</t>
+            <t hangText="Repeat:">http://activitystrea.ms/schema/1.0/share</t>
+          </list>
+        </t>
+      </section>
+
+      <section title="WebFinger discovery">
+        <t>Given an identity of acct:user@example.com, you can do the WebFinger
+          discovery process to find the XRD document for that
+          account.</t>
+
+        <t>The account's XRD document can have two types of links:
+          <list style="numbers">
+            <t>A link to the account's OStatus-enabled Atom stream. Relation is
+              http://openmicroblogging.org/0.9/stream, can be an URI or a URI
+              template.</t>
+            <t>A link to the URITemplate to redirect the user in case of
+              publisher-initiated subscription. Rel is
+              http://openmicroblogging.org/0.9/subscribe. URI template takes
+              one parameter, feed, for the URL of the feed to which the
+              subscriber is subscribing.</t>
+          </list>
+        </t>
+      </section>
+    </section>
+
+    <section title="Usage scenarios">
+
+      <t>These are some rough scripts for some important processes in this
+        system. They are non-normative.</t>
+
+      <section title="Subscription (from Subscriber server)">
+
+        <t>
+          <list style="numbers">
+            <t>Subscriber notifies Subscriber server of a feed to which she
+              wants to subscribe (e.g., by providing an URL or choosing from a
+              list of known feeds or whatever).</t>
+            <t>If the Subscriber server already has a subscription to this feed,
+              it skips to step 6.</t>
+            <t>Subscriber server downloads the feed using HTTP.</t>
+            <t>Subscriber server checks for a PuSH URL in the feed document. If
+              there's no PuSH URL, the server MAY end the subscription. Any other
+              subscription, e.g. one using polling, is out-of-band for
+              OStatus.</t>
+            <t>Subscriber server subscribes to the feed using PuSH subscription
+              mechanism.</t>
+            <t>Subscriber server checks the feed for a Salmon endpoint. If none
+              exists, the process is complete.</t>
+            <t>Subscriber server uses Salmon to push an activitystrea.ms
+              representation of the subscription to the Publisher
+              server.</t>
+          </list>
+        </t>
+        <t>Note: we presume in this flow that there is only one PuSH subscription
+          to any one Publisher's feed between the Publisher server and the
+          Subscription server. This is an optimization, to avoid sending the
+          same notice N times if there are N Subscribers on the Subscriber
+          service.</t>
+
+        <t>It's possible to participate in the OStatus network with multiple
+          subscriptions per Subscriber server; this just misses out on an
+          optimization.</t>
+
+      </section>
+
+      <section title="Subscription">
+        <t>
+          <list style="numbers">
+            <t>Subscriber provides a WebFinger account to the Publisher server
+              (say, in an HTML form).</t>
+            <t>Publisher server uses WebFinger to discover the subscription
+              URITemplate for this user.</t>
+            <t>Publisher server substitutes Publisher's feed URL into
+              URITemplate.</t>
+            <t>Publisher server redirects user's browser to
+              substituted URL.</t>
+            <t>Subscription continues from step 1 of previous use.</t>
+          </list>
+        </t>
+      </section>
+
+    </section>
+
+    <section title="Open questions">
+
+      <t>
+        <list style="numbers">
+          <t>Should notices be represented as activitystrea.ms &quot;notes&quot; or
+            &quot;tweets&quot;, or should they be &quot;raw&quot; Atom entries?
+            <list style="hanging">
+              <t hangText="PRO for raw:">system degrades cleanly to
+                &quot;plain&quot; PuSH.</t>
+              <t hangText="CON for raw:">less consistency in system;</t>
+            </list>
+          </t>
+          <t>Should there be discovery for publishers?
+            <list style="hanging">
+              <t hangText="PRO:">makes adding new</t>
+            </list>
+          </t>
+        </list>
+      </t>
+
+    </section>
+
+  </middle>
+
+  <back>
+    <references>
+      <reference anchor="RFC2119">
+        <front>
+          <title>Key words for use in RFCs to Indicate Requirement Levels</title>
+	  <author initials="SB" surname="Bradner" fullname="S. Bradner">
+	    <organization>Harvard University</organization>
+	  </author>
+	  <date month="March" year="1997" />
+        </front>
+        <format type="TXT" target="http://www.ietf.org/rfc/rfc2119.txt" />
+      </reference>
+      <reference anchor="RFC4685">
+        <front>
+          <title>Atom Threading Extensions</title>
+	  <author initials="JS" surname="Snell" fullname="J. Snell">
+	    <organization />
+	  </author>
+	  <date month="September" year="2006" />
+        </front>
+        <format type="TXT" target="http://www.ietf.org/rfc/rfc4685.txt" />
+      </reference>
+    </references>
+  </back>
+
+</rfc>
+
