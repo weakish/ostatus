@@ -345,17 +345,128 @@
   </middle>
 
   <back>
+
     <references>
+
       <reference anchor="RFC2119">
         <front>
           <title>Key words for use in RFCs to Indicate Requirement Levels</title>
-	  <author initials="SB" surname="Bradner" fullname="S. Bradner">
+	  <author initials="S." surname="Bradner" fullname="S. Bradner">
 	    <organization>Harvard University</organization>
 	  </author>
 	  <date month="March" year="1997" />
         </front>
         <format type="TXT" target="http://www.ietf.org/rfc/rfc2119.txt" />
       </reference>
+
+      <reference anchor="activitiesinatom">
+	<front>
+	  <title>Atom Activity Extensions (Draft)</title>
+	  <author initials="M." fullname="Martin Atkins" surname="Atkins">
+	    <organization>Six Apart</organization>
+	  </author>
+	  <author initials="D." fullname="David Recordon" surname="Recordon">
+	    <organization>Facebook</organization>
+	  </author>
+	  <author fullname="Chris Messina" initials="C." surname="Messina">
+	    <organization>Citizen Agency</organization>
+	  </author>
+	  <author fullname="Monica Keller" initials="M." surname="Keller">
+	    <organization>MySpace</organization>
+	  </author>
+	  <author fullname="Ari Steinberg" initials="A." surname="Steinberg">
+	    <organization>Facebook</organization>
+	  </author>
+	  <author fullname="Rob Dolin" initials="R." surname="Dolin">
+	    <organization>Microsoft</organization>
+	  </author>
+	  <date month="March" day="1" year="2010" />
+	</front>
+        <format type="HTML" target="http://martin.atkins.me.uk/specs/activitystreams/atomactivity" />
+      </reference>
+
+      <reference anchor="activityschema">
+	<front>
+	  <title>Atom Activity Base Schema (Draft)</title>
+	  <author fullname="Martin Atkins" initials="M." surname="Atkins">
+	    <organization>Six Apart</organization>
+	  </author>
+	  <author fullname="David Recordon" initials="D." surname="Recordon">
+	    <organization>Six Apart</organization>
+	  </author>
+	  <author fullname="Chris Messina" initials="C." surname="Messina">
+	    <organization>Diso Project</organization>
+	  </author>
+	  <author fullname="Monica Keller" initials="M." surname="Keller">
+	    <organization>MySpace</organization>
+	  </author>
+	  <author fullname="Ari Steinberg" initials="A." surname="Steinberg">
+	    <organization>Facebook</organization>
+	  </author>
+	  <author fullname="Rob Dolin" initials="R." surname="Dolin>
+	    <organization>Microsoft</organization>
+	  </author>
+	  <date month="March" day="1" year="2010" />
+	</front>
+        <format type="HTML" target="http://martin.atkins.me.uk/specs/activitystreams/activityschema" />
+      </reference>
+
+      <reference anchor="push">
+	<front>
+	  <title>PubSubHubbub Core 0.3 -- Working Draft</title>
+	  <author fullname="Brad Fitzpatrick" initials="B." surname="Fitzpatrick">
+	    <organization>Google, Inc</organization>
+	    <address>
+	      <email>brad@danga.com</email>
+	    </address>
+	  </author>
+	  <author fullname="Brett Slatkin" initials="B." surname="Slatkin">
+	    <organization>Google, Inc</organization>
+	    <address>
+	      <email>bslatkin@gmail.com</email>
+	    </address>
+	  </author>
+	  <author fullname="Martin Atkins"
+	    initials="M." surname="Atkins">
+	    <organization>Six Apart Ltd.</organization>
+	    <address>
+	      <email>mart@degeneration.co.uk</email>
+	    </address>
+	  </author>
+	  <date day="8" month="February" year="2010" />
+	</front>
+	<format type="HTML" target="http://pubsubhubbub.googlecode.com/svn/trunk/pubsubhubbub-core-0.3.html" />
+      </reference>
+
+      <reference anchor="salmon">
+	<front>
+	  <title abbrev="The Salmon Protocol">The Salmon Protocol</title>
+	  <author fullname="John Panzer" initials="J." surname="Panzer">
+	    <organization>Google Inc.</organization>
+	    <address>
+	      <email>jpanzer@google.com</email>
+	    </address>
+	  </author>
+	  <date month="February" year="2010"/>
+	</front>
+	<format type="HTML" target="http://salmon-protocol.googlecode.com/svn/trunk/draft-panzer-salmon-00.html" />
+      </reference>
+
+      <reference anchor="poco">
+	<front>
+	  <title>Portable Contacts 1.0 Draft C</title>
+	  <author fullname="Joseph Smarr" initials="J." surname="Smarr">
+	    <organization>Plaxo</organization>
+	    <address>
+	      <email>joseph@plaxo.com</email>
+	    </address>
+	  </author>
+	  <date month="August" day="5" year="2008" />
+	</front>
+	<format type="HTML"
+	  target="http://portablecontacts.net/draft-spec.html" />
+      </reference>
+
       <reference anchor="RFC4685">
         <front>
           <title>Atom Threading Extensions</title>
