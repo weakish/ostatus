@@ -225,6 +225,19 @@
 	actor. In this case, the author element MUST have a unique
 	identifier, that is, either the &lt;email&gt; or &lt;uri&lt;
 	elements must be present.</t>
+      <t>Subscribers MUST search for the URI in the following order:
+        the Activity object's &lt;id&gt; element if available, else
+        the Atom author's &lt;uri&gt; element if available, else the
+        Atom author's &lt;email&gt; element treated as a Webfinger acct: URI.
+        Publishers MAY use a profile URL as the URI, but if so
+        MUST ensure that they are stable permalinks.</t>
+      <t>Users SHOULD have a profile URL, which SHOULD be an HTTP
+        or HTTPS reference to an HTML page including discovery
+        information for the user's feed.
+        The profile URL SHOULD be represented as a
+        link[@rel=alternate,@type=text/html] in the Activity subject,
+        actor, or object item, otherwise the URI MAY be used if it is
+        an HTTP or HTTPS URL.</t>
       <t>To provide additional profile information, the author or
 	actor element can be extended with optional <xref
 	  target="poco">Portable Contacts</xref>-structured data. Some
@@ -242,6 +255,8 @@
 	    activity actors.</t>
 	</list>
       </t>
+      <t>Subscribers MAY use other sources of profile information such
+      as microformats on the profile page, but are not required to.</t>
     </section>
     <section title="Feed representation">
       <t>Feeds are Activity feeds per <xref target="activitiesinatom" />.</t>
@@ -249,8 +264,10 @@
         User feeds SHOULD have a single activity:subject or atom:author.
         Group feeds SHOULD have a single activity:subject
         representing the group.</t>
-      <t>All feeds SHOULD have a link[@rel=hub] and a
-        link[@rel=salmon] to identify the</t>
+      <t>All feeds MUST have a link[@rel=hub] to identify a PubSubHubbub
+        endpoint URL to establish update subscriptions.</t>
+      <t>All feeds SHOULD have a link[@rel=salmon] to identify the Salmon
+        endpoint URL to receive replies and notifications.</t>
     </section>
     <section title="Update publication">
       <t>The publisher server uses <xref
