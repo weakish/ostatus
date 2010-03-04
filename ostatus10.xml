@@ -43,21 +43,47 @@
       </address>
     </author>
 
-    <date day="3" month="March" year="2010" />
+    <date day="4" month="March" year="2010" />
 
     <abstract>
+
       <t>
 	OStatus lets people on different social networks follow each
-	other. It is an application of several related protocols, with
-	some extensions to allow integration.
+	other. It is an application profile for several related profiles.
       </t>
+
+      <t>
+	We believe OStatus is a minimal specification for distributed
+	microblogging. Some features of monolithic microblogging systems
+	may not be implemented.
+      </t>
+
+      <t>
+	OStatus is not restricted in scope to microblogging, however.
+	Practically any software that generates RSS or Atom feeds
+	could be OStatus-enabled. Travel networks, event invitation
+	systems, wikis, photo-sharing systems, social news sites,
+	social music sites, podcasting servers, blogs, and general
+	purpose social networks would all be candidates for OStatus
+	use.
+      </t>
+
+      <t>
+	The authors are indebted to the creators of the protocols
+	that underlie OStatus. We recognize that most of this protocol
+	suite &quot;naturally&quot; fits together, and do not claim
+	originality or creativity in connecting their use. We hope that
+	the obviousness of some parts of this specification are an
+	argument in favor of its use, rather than against its authors.
+      </t>
+
     </abstract>
 
   </front>
 
   <middle>
 
-    <section title="Terminology">
+    <section title="Notation and Conventions">
       <t>
 	The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;,
 	&quot;SHALL NOT&quot;, &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;, &quot;MAY&quot;,
@@ -66,52 +92,70 @@
       </t>
     </section>
 
-    <section title="Scope">
-      <section anchor="glossary" title="Abstract architecture">
+    <section anchor="definitions" title="Definitions">
 	<t>
 	  <list style="hanging">
-	    <t hangText="publisher:">
-	      the author of microblogging notices
+	    <t hangText="User:">
+	      A person or organization, or a program that mimics a person
+	      or organization ("bot").
+	    </t>
+	    <t hangText="Update:">
+	      Notification of a change in a user's status or an action taken by a user.
+	    </t>
+	    <t hangText="Feed:">
+	      A list of related updates. For example, a feed may
+	      consist of all updates by a user, all updates by
+	      users that are members of a group, updates that
+	      match a search query.
+	    </t>
+	    <t hangText="Publisher:">
+	      A user who makes their updates available for others.
 	    </t>
 	    <t hangText="subscriber:">
-	      the receiver of microblogging notices
+	      A user who receives updates from one or more publishers.
 	    </t>
 	    <t hangText="publisher server:">
-	      the Web-accessible server that provides the publisher's data
+	      the Web-accessible server that the publisher uses to
+	      make updates available.
 	    </t>
 	    <t hangText="subscriber server:">
-	      the Web-accessible server that provides data to the subscriber
-	    </t>
-	    <t hangText="notice:">
-	      a unit of content, typically a short plain text message
-	      with context and attachments.
+	      the Web-accessible server that the subscriber uses to
+	      receive updates.
 	    </t>
 	  </list>
 	</t>
       </section>
 
       <section title="Requirements">
+
+	<t>
+	  This is the rough outline of the problem we're trying to address.
+	</t>
+
 	<t>
 	  <list style="symbols">
 
-	    <t>Subscriber can receive Publisher's notices very soon after
-	      publication. (&quot;Real time&quot;, &quot;near real time&quot;) (Upshot: we want
-	      push.)</t>
+	    <t>An update may be represented with plain text in UTF-8 encoding.</t>
 
-	    <t>Notices contain plain text in UTF-8 encoding and may contain
-	      optional HTML representation as well as one or more enclosure.</t>
+	    <t>An update may be represented with HTML.</t>
 
-	    <t>A notice can be in response to another notice.</t>
+	    <t>An update may include one or more attached files.</t>
 
-	    <t>A notice can be a forwarded copy of another notice. (&quot;repeat&quot;,
+	    <t>An update may be a response to another update.</t>
+
+	    <t>An update can be a forwarded or shared copy of another update. (&quot;repeat&quot;,
 	      &quot;retweet&quot;).</t>
 
-	    <t>A notice can be about a topic.</t>
+	    <t>An update can be about a topic.</t>
 
-	    <t>A notice can be directed to the attention of a particular recipient.
+	    <t>An update can be directed to the attention of a particular recipient.
 	      (&quot;mention&quot;).</t>
 
-	    <t>Anyone can mark a notice as a &quot;favorite&quot;, or remove that mark.</t>
+	    <t>Anyone can mark a update as a &quot;favorite&quot;, or remove that mark.</t>
+
+	    <t>Subscriber can receive Publisher's updates very soon after
+	      publication. (&quot;Real time&quot;, &quot;near real time&quot;) (Upshot: we want
+	      push.)</t>
 
 	    <t>Publisher server can store a list of all Subscribers for a given
 	      Publisher, including identities and profile data.</t>
@@ -119,16 +163,16 @@
 	    <t>Subscriber server can store a list of all Publishers for a given
 	      Subscriber, including identities and profile data.</t>
 
-	    <t>Publisher server can store a list of all responses to a notice
+	    <t>Publisher server can store a list of all responses to a update
 	      by a publisher.</t>
 
-	    <t>Publisher server can store a list of all forwarded copies of a notice
+	    <t>Publisher server can store a list of all forwarded copies of a update
 	      by a publisher.</t>
 
-	    <t>Publisher server can store a list of all &quot;favorites&quot; of a notice by
+	    <t>Publisher server can store a list of all &quot;favorites&quot; of a update by
 	      a Publisher.</t>
 
-	    <t>Servers can determine notice context and metadata without
+	    <t>Servers can determine update context and metadata without
 	      parsing the plain text according to a particular syntax.</t>
 
 	    <t>Subscribers can subscribe to a feed with multiple authors, such
@@ -143,32 +187,33 @@
 	<t>
 	  <list style="hanging">
 	    <t hangText="Microblogging syntax:">Microblogging servers use a number of
-	      different idioms for adding metadata to a notice. Notable examples
+	      different idioms for adding metadata to a update. Notable examples
 	      are hashtags (#hashtag) and @-replies (@username). We defer to
 	      microsyntax.org for developing these idioms and encourage innovation.
 	      Publisher and subscriber servers should be able to process received
-	      notices without parsing the plain text content.</t>
+	      updates without parsing the plain text content.</t>
 	    <t hangText="Client API">Microblogging systems typically allow many forms of
 	      communication between the publisher and the publisher server as well
 	      as the subscriber and the subscriber server. Some examples: Web
 	      interface, email, IM, SMS, and a Web API. By analogy with email,
-	      OStatus is to client interfaces as SMTP is to IMAP or POP.
-	    </t>
+	      Ostatus is to client interfaces as SMTP is to IMAP or POP.</t>
+	    <t hangText="Private messaging:">Ostatus does
+	      not directly address sending 1-to-1 private messages or private streams.</t>
+	    <t hangText="Social graph:"></t>
 	  </list>
 	</t>
       </section>
-    </section>
 
     <section title="Protocol">
 
-      <t>OStatus applies the following technologies:</t>
+      <t>Ostatus applies the following technologies:</t>
       <t>
 	<list style="symbols">
 	  <t>Atom.</t>
 	  <t>PubSubHubBub (&quot;PuSH&quot;): a protocol for pushing Atom feeds to
 	    subscribers.</t>
 	  <t>activitystrea.ms: a protocol for enhancing Atom entries to
-	    represent a user's activities.</t>
+	    represent a user's updates.</t>
 	  <t>Salmon: a protocol for submitting responses to Atom feeds.</t>
 	  <t>WebFinger: global identities</t>
 	</list>
@@ -176,22 +221,22 @@
 
       <section title="Overview">
 
-	<t>Notices are represented as Atom entries, with additional data for
+	<t>updates are represented as Atom entries, with additional data for
 	  threading, responses, attention, and topics.</t>
 
-	<t>The publisher server uses PuSH to notify subscribers of new notices in
+	<t>The publisher server uses PuSH to notify subscribers of new updates in
 	  real-enough-time.</t>
 
-	<t>The subscriber server uses PuSH to subscribe to the publisher's notice
+	<t>The subscriber server uses PuSH to subscribe to the publisher's update
 	  feed.</t>
 
 	<t>The subscriber server uses Salmon to post activitystrea.ms-enhanced
 	  notifications to the publisher of new subscribers; of replies and
-	  &quot;attention&quot; notices; of favorites; and of
-	  forwarded notices.</t>
+	  &quot;attention&quot; updates; of favorites; and of
+	  forwarded updates.</t>
 
 	<t>The publisher server optionally uses push to notify subscribers of the
-	  publisher's activities, using activitystrea.ms-enhanced
+	  publisher's updates, using activitystrea.ms-enhanced
 	  notifications.</t>
 
 	<t>If subscription originates with the Publisher server, the Subscriber
@@ -303,7 +348,7 @@
         <t>Note: we presume in this flow that there is only one PuSH subscription
           to any one Publisher's feed between the Publisher server and the
           Subscription server. This is an optimization, to avoid sending the
-          same notice N times if there are N Subscribers on the Subscriber
+          same update N times if there are N Subscribers on the Subscriber
           service.</t>
 
         <t>It's possible to participate in the OStatus network with multiple
@@ -334,7 +379,7 @@
 
       <t>
         <list style="numbers">
-          <t>Should notices be represented as activitystrea.ms &quot;notes&quot; or
+          <t>Should updates be represented as activitystrea.ms &quot;notes&quot; or
             &quot;tweets&quot;, or should they be &quot;raw&quot; Atom entries?
             <list style="hanging">
               <t hangText="PRO for raw:">system degrades cleanly to
