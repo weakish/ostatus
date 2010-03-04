@@ -11,27 +11,32 @@
 <rfc category="info" ipr="full3978" docName="ostatus10.xml">
 
   <front>
+
     <title>OStatus 1.0 Draft 1</title>
-    <author initials="ESP" surname="Prodromou" fullname="Evan Prodromou">
+
+    <author initials="E." surname="Prodromou" fullname="Evan Prodromou">
       <organization>StatusNet Inc</organization>
       <address>
 	<email>evan@status.net</email>
 	<uri>http://evan.status.net/</uri>
       </address>
     </author>
-    <author initials="BV" surname="Vibber" fullname="Brion Vibber">
+
+    <author initials="B." surname="Vibber" fullname="Brion Vibber">
       <organization>StatusNet Inc</organization>
       <address>
 	<email>brion@status.net</email>
       </address>
     </author>
-    <author initials="JW" surname="Walker" fullname="James Walker">
+
+    <author initials="J." surname="Walker" fullname="James Walker">
       <organization>StatusNet Inc</organization>
       <address>
 	<email>james@status.net</email>
       </address>
     </author>
-    <author initials="ZC" surname="Copley" fullname="Zach Copley">
+
+    <author initials="Z." surname="Copley" fullname="Zach Copley">
       <organization>StatusNet Inc</organization>
       <address>
 	<email>zach@status.net</email>
@@ -461,7 +466,7 @@
 	  target="http://portablecontacts.net/draft-spec.html" />
       </reference>
 
-      <reference anchor="georss'>
+      <reference anchor="georss">
 	<front>
 	  <title>GeoRSS-Simple</title>
 	</front>
