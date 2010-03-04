@@ -38,7 +38,7 @@
     <abstract>
       <t>
 	OStatus lets people on different social networks follow each
-	other. It applies a group of related protocols (PubSubHubBub,
+	other. It applies a group of related protocols (PubSubHubbub,
 	ActivityStreams, Salmon, Portable Contacts, and Webfinger) to
 	this problem in what we believe is a simple and obvious way.
       </t>
@@ -254,15 +254,15 @@
     </section>
     <section title="Update publication">
       <t>The publisher server uses <xref
-          target="push">PubSubHubBub</xref> to notify subscribers of new updates.</t>
+          target="push">PubSubHubbub</xref> to notify subscribers of new updates.</t>
       <t>If multiple subscribers using the same subscriber server
         subscribe to the same publisher, the subscriber server SHOULD use
-        the one PubSubHubBub subscription for all of them.</t>
+        the one PubSubHubbub subscription for all of them.</t>
     </section>
     <section title="User notification">
       <t>Servers use <xref target="salmon">Salmon</xref> to post
         social events to users or groups. Servers MUST NOT assume that
-        updates that were modeled as activities in a PubSubHubBub-enabled
+        updates that were modeled as activities in a PubSubHubbub-enabled
         feed were received by the user.</t>
       <t>Note that sender and receiver of a notification MAY NOT
         have a subscriber-publisher relationship.</t>
@@ -307,7 +307,7 @@
     <section title="Discovery">
       <t>Information necessary to establish a subscription or post a
         notification can be determined from the feed for a user or
-        group. The profile data, salmon endpoint, and PubSubHubBub hub
+        group. The profile data, salmon endpoint, and PubSubHubbub hub
         are all encoded in the feed itself.</t>
       <t>There are three ways to discover the location of the feed.
         <list style="numbers">
@@ -356,11 +356,11 @@
             <t>If the Subscriber server already has a subscription to this feed,
               it skips to step 6.</t>
             <t>Subscriber server downloads the feed using HTTP.</t>
-            <t>Subscriber server checks for a PubSubHubBub URL in the feed document. If
-              there's no PubSubHubBub URL, the server MAY end the subscription. Any other
+            <t>Subscriber server checks for a PubSubHubbub URL in the feed document. If
+              there's no PubSubHubbub URL, the server MAY end the subscription. Any other
               subscription, e.g. one using polling, is out-of-band for
               OStatus.</t>
-            <t>Subscriber server subscribes to the feed using PubSubHubBub subscription
+            <t>Subscriber server subscribes to the feed using PubSubHubbub subscription
               mechanism.</t>
             <t>Subscriber server checks the feed for a Salmon endpoint. If none
               exists, the process is complete.</t>
