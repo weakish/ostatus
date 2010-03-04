@@ -7,6 +7,13 @@
 <!ENTITY rfc4685 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4685.xml'>
 ]>
 <rfc category="info" ipr="full3978" docName="ostatus10.xml">
+<?rfc toc="yes" ?>
+<?rfc tocdepth="2" ?>
+<?rfc symrefs="yes" ?>
+<?rfc sortrefs="yes"?>
+<?rfc strict="no" ?>
+<?rfc iprnotified="no" ?>
+<?rfc private="Draft" ?>
   <front>
     <title>OStatus 1.0 Draft 1</title>
     <author initials="E." surname="Prodromou" fullname="Evan Prodromou">
