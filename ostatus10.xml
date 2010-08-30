@@ -359,9 +359,11 @@
 	    <xref target="LRDD" />.</t>
         </list>
       </t>
-      <t>The user's XRD document MAY have an additional link to
+      <t>The user's XRD document MAY have an additional link template with Rel
+	equal to http://ostatus.org/schema/1.0/subscribe to
         indicate the endpoint to use for initiating a subscription on
-        the user's subscription server.</t>
+        the user's subscription server. The template should take a
+	single argument, uri, for the account to subscribe to.</t>
     </section>
 
     <section title="Usage scenarios">
