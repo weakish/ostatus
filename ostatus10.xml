@@ -15,7 +15,7 @@
 <?rfc iprnotified="no" ?>
 <?rfc private="Draft" ?>
   <front>
-    <title>OStatus 1.0 Draft 1</title>
+    <title>OStatus 1.0 Draft 2</title>
     <author initials="E." surname="Prodromou" fullname="Evan Prodromou">
       <organization>StatusNet Inc</organization>
       <address>
@@ -41,7 +41,7 @@
 	<email>zach@status.net</email>
       </address>
     </author>
-    <date day="4" month="March" year="2010" />
+    <date day="30" month="August" year="2010" />
     <abstract>
       <t>
 	OStatus lets people on different social networks follow each
