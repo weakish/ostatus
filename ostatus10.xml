@@ -260,7 +260,7 @@
 	verb &quot;Post&quot; and activity object type
 	&quot;Note&quot;, with the Atom author as the implied activity
 	actor. In this case, the author element MUST have a unique
-	identifier, that is, either the &lt;email&gt; or &lt;uri&lt;
+	identifier, that is, either the &lt;email&gt; or &lt;uri&gt;
 	elements must be present.</t>
       <t>Subscribers MUST search for the URI in the following order:
         the Activity object's &lt;id&gt; element if available, else
